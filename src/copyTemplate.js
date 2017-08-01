@@ -1,5 +1,6 @@
 const globby = require('globby')
 const path = require('path')
+const fs = require('fs')
 
 module.exports = function copyTemplate(props = {}) {
   const paths = globby.sync([`${this.templatePath()}/**/*`], { dot: true, nodir: true })
@@ -14,7 +15,10 @@ module.exports = function copyTemplate(props = {}) {
       if (path.extname(p) === '.json')
         this.fs.extendJSON(this.destinationPath(file), this.fs.readJSON(p))
       else
-        this.fs.append(this.destinationPath(file), this.fs.read(p))
+        if (fs.existsSync(this.destinationPath(file)))
+          this.fs.append(this.destinationPath(file), this.fs.read(p))
+        else
+          this.fs.copy(p, this.destinationPath(file))
     } else {
       const file = path.relative(this.templatePath(), p)
       this.fs.copyTpl(p, this.destinationPath(file), props)
