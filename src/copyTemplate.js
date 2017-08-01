@@ -2,7 +2,7 @@ const globby = require('globby')
 const path = require('path')
 
 module.exports = function copyTemplate(props = {}) {
-  const paths = globby.sync([`${this.templatePath()}/**/*`])
+  const paths = globby.sync([`${this.templatePath()}/**/*`], { dot: true, nodir: true })
   paths.forEach(p => {
     // TEMPLATE_PATH/da/_package.json
     if (path.basename(p).startsWith('_')) {
