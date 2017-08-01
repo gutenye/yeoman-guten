@@ -5,5 +5,12 @@
   "license": "MIT",
   "files": [
     "src"
-  ]
+  ],
+  "dependencies": {
+    "globby": "^6.1.0",
+    "lodash": "^4.17.4"
+  },
+  "peerDependencies": {
+    "yeoman-generator": "*"
+  }
 }

@@ -1,3 +1,5 @@
+const globby = require('globby')
+
 module.exports = function copyTemplate(props = {}) {
   const paths = globby.sync([`${this.templatePath()}/**/*`])
   paths.forEach(p => {
